@@ -1,11 +1,11 @@
-import { db } from "./db";
-import { messages } from "./schema";
+import { db } from './db';
+import { messages } from './schema';
 
 await db.insert(messages).values([
 	{
-		message: "First!",
+		message: 'First!',
 	},
 	{
-		message: "Hello there!",
+		message: 'Hello there!',
 	},
 ]);
