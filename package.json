@@ -1,23 +1,23 @@
 {
 	"scripts": {
 		"dev": "bun run --hot src/index.tsx",
-		"db:generate": "drizzle-kit generate:sqlite",
+		"db:generate": "drizzle-kit generate",
 		"db:migrate": "bun src/db/migrate.ts",
 		"db:seed": "bun src/db/seed.ts",
 		"db:setup": "bun db:generate && bun db:migrate && bun db:seed",
 		"db:clean": "drizzle-kit drop && rm sqlite.db"
 	},
 	"dependencies": {
-		"@hono/zod-validator": "^0.2.1",
-		"drizzle-orm": "^0.30.7",
-		"drizzle-zod": "^0.5.1",
-		"hono": "^4.2.2",
-		"zod": "^3.22.4"
+		"@hono/zod-validator": "0.2.2",
+		"drizzle-orm": "0.32.1",
+		"drizzle-zod": "0.5.1",
+		"hono": "4.5.3",
+		"zod": "3.23.8"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
-		"drizzle-kit": "^0.20.14",
-		"prettier": "^3.3.3",
-		"typescript": "^5.4.5"
+		"drizzle-kit": "0.23.0",
+		"prettier": "3.3.3",
+		"typescript": "5.5.4"
 	}
 }
