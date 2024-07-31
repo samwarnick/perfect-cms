@@ -1,28 +1,29 @@
 {
-	"scripts": {
-		"dev": "bun run --hot src/index.ts",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "bun src/db/migrate.ts",
-		"db:seed": "bun src/db/seed.ts",
-		"db:setup": "bun db:generate && bun db:migrate && bun db:seed",
-		"db:clean": "drizzle-kit drop && rm sqlite.db"
-	},
-	"dependencies": {
-		"@hono/zod-validator": "0.2.2",
-		"better-title-case": "2.1.0",
-		"drizzle-orm": "0.32.1",
-		"drizzle-zod": "0.5.1",
-		"gray-matter": "4.0.3",
-		"hono": "4.5.3",
-		"luxon": "3.4.4",
-		"octokit": "4.0.2",
-		"zod": "3.23.8"
-	},
-	"devDependencies": {
-		"@types/bun": "latest",
-		"@types/luxon": "3.4.2",
-		"drizzle-kit": "0.23.0",
-		"prettier": "3.3.3",
-		"typescript": "5.5.4"
-	}
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "bun src/db/migrate.ts",
+    "db:seed": "bun src/db/seed.ts",
+    "db:setup": "bun db:generate && bun db:migrate && bun db:seed",
+    "db:clean": "drizzle-kit drop && rm sqlite.db"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.25.0",
+    "@hono/zod-validator": "0.2.2",
+    "better-title-case": "2.1.0",
+    "drizzle-orm": "0.32.1",
+    "drizzle-zod": "0.5.1",
+    "gray-matter": "4.0.3",
+    "hono": "4.5.3",
+    "luxon": "3.4.4",
+    "octokit": "4.0.2",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/luxon": "3.4.2",
+    "drizzle-kit": "0.23.0",
+    "prettier": "3.3.3",
+    "typescript": "5.5.4"
+  }
 }
