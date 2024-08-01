@@ -1,12 +1,12 @@
 import { zValidator } from '@hono/zod-validator';
-import { Context, Hono } from 'hono';
+import { Hono } from 'hono';
 import { logger } from 'hono/logger';
-import { db } from './db/db';
-import { insertMessageSchema, messages } from './db/schema';
 import { HTTPException } from 'hono/http-exception';
 import auth from './middleware/auth';
 import { micropubSchema } from './schemas';
-import { generateMarkdown } from './markdown';
+import { generateFilename, generateMarkdown } from './markdown';
+import { addFile } from './github';
+import { generateEditUrl } from './pagescms';
 
 const app = new Hono();
 
@@ -27,7 +27,13 @@ app.get('/micropub', auth, async (c) => {
 app.post('/micropub', auth, zValidator('json', micropubSchema), async (c) => {
 	const { properties } = c.req.valid('json');
 	const fileContent = await generateMarkdown(properties);
-	return c.json({}, 202);
+	const filename = generateFilename(properties);
+	const response = await addFile(filename, fileContent);
+	if (response.status === 201) {
+		c.res.headers.set('Location', generateEditUrl(filename));
+		return c.json({}, 202);
+	}
+	throw new HTTPException(500);
 });
 
 app.post('/media', auth, async (c) => {
