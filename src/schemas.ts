@@ -9,3 +9,8 @@ export const micropubSchema = z.object({
 	}),
 });
 export type Micropub = z.infer<typeof micropubSchema>;
+
+export const mediaSchema = z.object({
+	file: z.custom<File>(),
+	purpose: z.enum(['image']),
+});

@@ -1,4 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { encode } from './utils/base64';
+import { fileTypeFromBlob } from 'file-type';
+import { ImageBlockParam } from '@anthropic-ai/sdk/resources';
 
 const anthropic = new Anthropic();
 
@@ -25,6 +28,41 @@ export async function generateSuggestedSummary(content: string) {
 <example>Creating a Netlify _redirects file with Eleventy.</example>
 
 ${content}`,
+					},
+				],
+			},
+		],
+	});
+	const contentBlock = response.content?.[0];
+	if (contentBlock.type === 'text') {
+		return contentBlock.text;
+	}
+	return '';
+}
+
+export async function generateAltText(
+	image: Buffer,
+	mimeType: ImageBlockParam.Source['media_type'],
+) {
+	const response = await anthropic.messages.create({
+		model: 'claude-3-haiku-20240307',
+		max_tokens: 1000,
+		temperature: 0,
+		messages: [
+			{
+				role: 'user',
+				content: [
+					{
+						type: 'text',
+						text: 'Write a brief alt text for this image',
+					},
+					{
+						type: 'image',
+						source: {
+							type: 'base64',
+							media_type: mimeType,
+							data: image.toString('base64'),
+						},
 					},
 				],
 			},
