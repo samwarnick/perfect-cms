@@ -10,7 +10,6 @@ import { generateEditUrl } from './pagescms';
 import { generateAltText } from './ai';
 import { fileTypeFromBuffer } from 'file-type';
 import sharp from 'sharp';
-// import { serveStatic } from 'hono/bun';
 
 let altTextCache: { [filename: string]: string } = {};
 
@@ -36,8 +35,6 @@ app.post('/', auth, zValidator('json', micropubSchema), async (c) => {
 	}
 	throw new HTTPException(500);
 });
-
-// app.get('/media/*', serveStatic({ root: './' }));
 
 app.post('/media', auth, zValidator('form', mediaSchema), async (c) => {
 	const { file } = c.req.valid('form');

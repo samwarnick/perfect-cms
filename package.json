@@ -23,7 +23,6 @@
 		"zod": "3.23.8"
 	},
 	"devDependencies": {
-		"@octokit/types": "13.5.0",
 		"@types/bun": "latest",
 		"@types/luxon": "3.4.2",
 		"drizzle-kit": "0.23.0",
