@@ -41,7 +41,7 @@ app.post('/', auth, zValidator('json', micropubSchema), async (c) => {
 
 app.post('/media', auth, zValidator('form', mediaSchema), async (c) => {
 	const { file } = c.req.valid('form');
-	await Bun.write(`./images/${file.name}`, file);
+	await Bun.write(`./media/${file.name}`, file);
 	const buffer = await file.arrayBuffer();
 	const mimeType = (await fileTypeFromBuffer(buffer))?.mime;
 	if (
