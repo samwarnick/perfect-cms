@@ -10,29 +10,21 @@ import { generateEditUrl } from './pagescms';
 import { generateAltText } from './ai';
 import { fileTypeFromBuffer } from 'file-type';
 import sharp from 'sharp';
+import { serveStatic } from 'hono/bun';
 
 let altTextCache: { [filename: string]: string } = {};
 
 const app = new Hono();
 
 app.use(logger());
-// app.use(auth);
 
-// TODO: Remove this in prod
-app.get('/', async (c) => {
-	return c.html(`<html><head>
-    <title>Micropub Endpoint</title>
-    <link rel="micropub" href="https://e5a7-207-182-81-24.ngrok-free.app/micropub">
-  </head></html>`);
-});
-
-app.get('/micropub', auth, async (c) => {
+app.get('/', auth, async (c) => {
 	return c.json({
 		'media-endpoint': `${Bun.env.MICROPUB_URL}/media`,
 	});
 });
 
-app.post('/micropub', auth, zValidator('json', micropubSchema), async (c) => {
+app.post('/', auth, zValidator('json', micropubSchema), async (c) => {
 	const { properties } = c.req.valid('json');
 	const fileContent = await generateMarkdown(properties, altTextCache);
 	const filename = generateFilename(properties);
@@ -44,6 +36,8 @@ app.post('/micropub', auth, zValidator('json', micropubSchema), async (c) => {
 	}
 	throw new HTTPException(500);
 });
+
+app.get('/media/*', serveStatic({ root: './' }));
 
 app.post('/media', auth, zValidator('form', mediaSchema), async (c) => {
 	const { file } = c.req.valid('form');
