@@ -1,19 +1,10 @@
-To install dependencies:
+This is a lightweight [Micropub](https://indieweb.org/Micropub) server built with [Hono](https://hono.dev) and [Bun](https://bun.sh).
+
+It is intended for my personal use only, but could be adapted pretty easily 🤷🏻‍♂️. I just wanted to publish to my [blog](https://samwarnick) from iA Writer.
 
 ```sh
 bun install
-```
-
-To setup database:
-
-```sh
-bun db:setup
-```
-
-To run:
-
-```sh
-bun run dev
+bun dev
 ```
 
 open http://localhost:3000
