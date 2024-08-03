@@ -9,6 +9,6 @@ export function addFile(name: string, content: string) {
 		repo: Bun.env.GITHUB_REPO,
 		path: name,
 		content: encode(content),
-		message: `Add ${name}`,
+		message: `Add ${name}\n\n[skip ci]`,
 	});
 }
