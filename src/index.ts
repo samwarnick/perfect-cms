@@ -5,7 +5,7 @@ import { HTTPException } from 'hono/http-exception';
 import auth from './middleware/auth';
 import { mediaSchema, micropubSchema } from './schemas';
 import { generateFilename, generateMarkdown } from './markdown';
-import { addFile } from './github';
+import { addFile, check } from './github';
 import { generateEditUrl } from './pagescms';
 import { generateAltText } from './ai';
 import { fileTypeFromBuffer } from 'file-type';
@@ -53,6 +53,11 @@ app.post('/media', auth, zValidator('form', mediaSchema), async (c) => {
 	}
 	c.res.headers.set('Location', `https://samwarnick.com/media/${file.name}`);
 	return c.json({}, 202);
+});
+
+app.get('/health', async (c) => {
+	const res = await check();
+	return c.json(res);
 });
 
 export default app;

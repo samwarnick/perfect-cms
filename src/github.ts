@@ -12,3 +12,10 @@ export function addFile(name: string, content: string) {
 		message: `Add ${name}\n\n[skip ci]`,
 	});
 }
+
+export function check() {
+	return octokit.repos.get({
+		owner: Bun.env.GITHUB_OWNER,
+		repo: Bun.env.GITHUB_REPO
+	})
+}
