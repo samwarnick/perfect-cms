@@ -28,7 +28,7 @@ ENV GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
 ENV CONTENT_PATH=${CONTENT_PATH}
 
 USER bun
-RUN mkdir -p /usr/src/app/media
+RUN mkdir -p /media
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "run", "src/index.ts" ]
 
