@@ -3,3 +3,4 @@ node_modules
 sqlite.db
 /media
 .idea
+.DS_Store
